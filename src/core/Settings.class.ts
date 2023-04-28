@@ -5,6 +5,7 @@ import { IDefaultEntity } from '../shared/interfaces/default_entity.interface';
 export abstract class Settings {
 	private static _rows: number = 25;
 	private static _cols: number = 25;
+	private static _symbols: string[] = [' ', '▓', '░', '▒', '█'];
 
 	private static _defaultEntities: (NaturalElement | Creature)[][] = [];
 
@@ -44,6 +45,8 @@ export abstract class Settings {
 		defaultEntities: (NaturalElement | Creature)[][]
 	) {
 		this._defaultEntities = defaultEntities;
+		this._rows = defaultEntities.length;
+		this._cols = defaultEntities[0].length;
 	}
 
 	public static set defaultEntity({ row, col, entity }: IDefaultEntity) {
@@ -57,5 +60,13 @@ export abstract class Settings {
 		col: number
 	): NaturalElement | Creature | null {
 		return this._defaultEntities[row][col];
+	}
+
+	public static get symbols(): string[] {
+		return this._symbols;
+	}
+
+	public static set symbols(symbols: string[]) {
+		this._symbols = symbols;
 	}
 }

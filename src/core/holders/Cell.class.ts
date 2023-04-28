@@ -1,27 +1,14 @@
 import { Coordinates } from '../Coordinates.class';
-import { Settings } from '../Settings.class';
 import { Creature } from '../abstracts/Creature.class';
 import { Entity } from '../abstracts/Entity.class';
 import { NaturalElement } from '../abstracts/NaturalElement.class';
 
 export class Cell extends Entity {
-	private _coordinates: Coordinates;
-	private _item: NaturalElement | Creature | null;
+	private _item: NaturalElement | Creature | null = null;
 
 	constructor(x: number, y: number) {
 		super();
-		this._coordinates = new Coordinates(x, y);
-		this._item = null;
-	}
-
-	get coordinates(): Coordinates {
-		return this._coordinates;
-	}
-
-	set coordinates(coordinates: Coordinates) {
-		if (Settings.isCoordinatesValid(coordinates.x, coordinates.y))
-			this._coordinates = coordinates;
-		else throw new Error('Coordinates are not valid');
+		this.coordinates = new Coordinates(x, y);
 	}
 
 	get item(): NaturalElement | Creature | null {
@@ -42,5 +29,5 @@ export class Cell extends Entity {
 
 	public isOccupiedByNaturalElement(): boolean {
 		return this._item instanceof NaturalElement;
-  }
+	}
 }
